@@ -3,6 +3,14 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 export const setup_swagger = (app: INestApplication) => {
   const config = new DocumentBuilder()
+    .addBearerAuth({
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+      name: 'JWT',
+      in: 'header',
+      description: 'Enter JWT token',
+    })
     .setTitle('To-Do API')
     .setVersion('1.0')
     .build();
