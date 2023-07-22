@@ -9,5 +9,6 @@ import { BcryptModule } from 'src/common/bcrypt/bcrypt.module';
   imports: [PrismaModule, BcryptModule],
   controllers: [UserController],
   providers: [UserService, UserRepository],
+  exports: [UserService],
 })
 export class UserModule {}
