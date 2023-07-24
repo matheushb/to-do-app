@@ -6,11 +6,16 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { TaskService } from './task.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { ApiTags } from '@nestjs/swagger';
+import {
+  HasPaginationQuery,
+  PaginationParams,
+} from 'src/common/decorators/pagination.decorator';
 
 @ApiTags('Tasks')
 @Controller('task')
@@ -22,9 +27,10 @@ export class TaskController {
     return this.taskService.create(createTaskDto);
   }
 
+  @HasPaginationQuery()
   @Get()
-  findAll() {
-    return this.taskService.findAll();
+  findAll(@Query() paginationParams: PaginationParams) {
+    return this.taskService.findAll(paginationParams);
   }
 
   @Get(':id')

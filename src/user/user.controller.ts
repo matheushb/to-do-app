@@ -6,12 +6,16 @@ import {
   Patch,
   Param,
   Delete,
-  UseGuards,
+  Query,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiTags } from '@nestjs/swagger';
+import {
+  HasPaginationQuery,
+  PaginationParams,
+} from 'src/common/decorators/pagination.decorator';
 
 @ApiTags('Users')
 @Controller('user')
@@ -23,9 +27,10 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
+  @HasPaginationQuery()
   @Get()
-  findAll() {
-    return this.userService.findAll();
+  findAll(@Query() paginationParams: PaginationParams) {
+    return this.userService.findAll(paginationParams);
   }
 
   @Get(':id')

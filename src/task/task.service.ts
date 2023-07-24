@@ -6,6 +6,7 @@ import {
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { TaskRepository } from './task.repository';
+import { PaginationParams } from 'src/common/decorators/pagination.decorator';
 
 @Injectable()
 export class TaskService {
@@ -14,8 +15,8 @@ export class TaskService {
     return this.taskRepository.create(createTaskDto);
   }
 
-  findAll() {
-    return this.taskRepository.findAll();
+  findAll(paginationParams: PaginationParams) {
+    return this.taskRepository.findAll(paginationParams);
   }
 
   async findOne(id: string) {

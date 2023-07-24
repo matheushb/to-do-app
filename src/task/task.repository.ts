@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { PrismaService } from 'src/common/prisma/prisma.service';
+import { PaginationParams } from 'src/common/decorators/pagination.decorator';
 
 @Injectable()
 export class TaskRepository {
@@ -11,7 +12,7 @@ export class TaskRepository {
     return this.prismaService.task.create({ data });
   }
 
-  findAll() {
+  findAll(paginationParams: PaginationParams) {
     return this.prismaService.task.findMany();
   }
 
